@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Load App</string>
+    <string name="app_description">Download files from Internet</string>
+    <string name="action_settings">Settings</string>
+
+
+    <string name="notification_title">Udacity: Android Kotlin Nanodegree</string>
+    <string name="notification_description">The Project 3 repository is downloaded</string>
+    <string name="notification_button">See changes</string>
+    <string name="see_downloaded_file">See File</string>
+
+    <string name="glide_image_text">Glide - Image Loading Library</string>
+    <string name="load_app_git_repository">Load App - Current repository by Udacity</string>
+    <string name="retrofit_http_client">Retrofit - Type-safe HTTP client for Android and Java by Square</string>
+
+    <string name="button_name">Click me</string>
+    <string name="button_loading">We are loading</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="download_image">Download Image</string>
+    <string name="download_text">Download</string>
+    <string name="loading_text">We are Loading</string>
+    
+    <string name="download_channel_id" translatable="false">download_channel</string>
+    <string name="download_channel_name" translatable="true">Download</string>
+
+    <string name="file_name_details">File Name: </string>
+    <string name="file_name_status">Status: </string>
+    <string name="button_ok_details">OK</string>
+    <string name="download_success">Success</string>
+    <string name="download_failed">Failed</string>
+</resources>

@@ -1,0 +1,16 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="default_text_size">20sp</dimen>
+
+
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_large">24sp</dimen>
+
+    <dimen name="spacing_small">4dp</dimen>
+    <dimen name="spacing_normal">8dp</dimen>
+    <dimen name="spacing_large">16dp</dimen>
+    <dimen name="spacing_xLarge">24dp</dimen>
+
+    <dimen name="circle_radius">20dp</dimen>
+</resources>
