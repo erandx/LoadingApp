@@ -11,6 +11,7 @@
     <dimen name="spacing_normal">8dp</dimen>
     <dimen name="spacing_large">16dp</dimen>
     <dimen name="spacing_xLarge">24dp</dimen>
+    <dimen name="spacing_xxLarge">48dp</dimen>
 
     <dimen name="circle_radius">20dp</dimen>
 </resources>
