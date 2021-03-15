@@ -10,6 +10,7 @@ import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.AccelerateInterpolator
+import androidx.core.content.withStyledAttributes
 import kotlin.properties.Delegates
 
 class LoadingButton @JvmOverloads constructor(
@@ -21,6 +22,11 @@ class LoadingButton @JvmOverloads constructor(
     private var buttonWidth = 0
     private var loadingAngle = 0f // 0° to 360° Circle starting point
 
+    //Button Custom Attrs
+    private var buttonBackgroundColor = 0
+    private var buttonTextColor = 0
+
+    //Object ValueAnimator to animate Button and Circle
     private var circleAnimator = ValueAnimator()
     private var buttonAnimator = ValueAnimator()
 
@@ -93,6 +99,12 @@ class LoadingButton @JvmOverloads constructor(
         //Clickable property that enables the View to accept User Input
         isClickable = true
         buttonText = "Download"
+        context.theme.obtainStyledAttributes(attrs, R.styleable.LoadingButton, 0, 0)
+                .apply {
+
+                    buttonBackgroundColor = getColor(R.styleable.LoadingButton_buttonBackground, 0)
+                    buttonTextColor = getColor(R.styleable.LoadingButton_textColor, 0)
+                }
         buttonState = ButtonState.Clicked
 
     }
@@ -106,7 +118,7 @@ class LoadingButton @JvmOverloads constructor(
 
         //Draw Fixed Rectangle Button
         paintButton.color = context.getColor(R.color.colorPrimary)
-        canvas?.drawRect(0f,0f,widthSize.toFloat(), heightSize.toFloat(),paintButton)
+        canvas?.drawRect(0f, 0f, widthSize.toFloat(), heightSize.toFloat(), paintButton)
 
         //Draw the Animated Rectangle
         paintButton.color = context.getColor(R.color.colorPrimaryDark)
