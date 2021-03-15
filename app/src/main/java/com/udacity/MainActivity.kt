@@ -13,6 +13,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         custom_button.setOnClickListener {
+
             when (radio_group.checkedRadioButtonId) {
                 R.id.glide_image -> {
                     stringUrl = GLIDE_URL
@@ -51,17 +53,20 @@ class MainActivity : AppCompatActivity() {
                     //Button state will trigger the Animation
                     //We could set it for each radio button as in this case or
                     //only one time in the download method to write less code
+                    custom_button.buttonState = ButtonState.Loading
 
                 }
                 R.id.load_app_repository -> {
                     stringUrl = LOAD_APP_URL
                     fileName = getString(R.string.load_app_git_repository)
                     download()
+                    custom_button.buttonState = ButtonState.Loading
                 }
                 R.id.retrofit_http -> {
                     stringUrl = RETROFIT_URL
                     fileName = getString(R.string.retrofit_http_client)
                     download()
+                    custom_button.buttonState = ButtonState.Loading
                 }
                 else -> Toast.makeText(applicationContext, "Please make a choice", Toast.LENGTH_SHORT).show()
             }
@@ -75,8 +80,8 @@ class MainActivity : AppCompatActivity() {
         override fun onReceive(context: Context, intent: Intent?) {
             val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
             if (id == downloadID) {
-
                 fileStatus = ""
+                Toast.makeText(context, getString(R.string.download_completed), Toast.LENGTH_SHORT).show()
 
                 val cursor: Cursor = downloadManager.query(DownloadManager.Query().setFilterById(downloadID))
                 if (cursor.moveToFirst()) {
@@ -86,9 +91,11 @@ class MainActivity : AppCompatActivity() {
                     when (status) {
                         DownloadManager.STATUS_FAILED -> {
                             fileStatus = getString(R.string.download_failed)
+                            custom_button.buttonState = ButtonState.Completed
                         }
                         DownloadManager.STATUS_SUCCESSFUL -> {
                             fileStatus = getString(R.string.download_success)
+                            custom_button.buttonState = ButtonState.Completed
                         }
                     }
                     notificationManager.sendNotification(stringUrl, applicationContext)
@@ -126,7 +133,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun download() {
-//        custom_button.buttonState = ButtonState.Loading
 
         val request =
                 DownloadManager.Request(Uri.parse(stringUrl))
@@ -142,6 +148,7 @@ class MainActivity : AppCompatActivity() {
         downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
         downloadID =
                 downloadManager.enqueue(request)// enqueue puts the download request in the queue.
+
     }
 
     companion object {

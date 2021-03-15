@@ -18,6 +18,7 @@ class LoadingButton @JvmOverloads constructor(
     private var widthSize = 0
     private var heightSize = 0
     private var buttonText = ""
+    private var buttonWidth = 0
     private var loadingAngle = 0f // 0° to 360° Circle starting point
 
     private var circleAnimator = ValueAnimator()
@@ -56,29 +57,32 @@ class LoadingButton @JvmOverloads constructor(
                 circleAnimator = ValueAnimator.ofFloat(0f, 360f)
                         .apply {
                             duration = 3000
-
+                            repeatMode = ValueAnimator.REVERSE
+                            repeatCount = ValueAnimator.INFINITE
 
                             interpolator = AccelerateInterpolator(1f)
                             addUpdateListener { animation ->
-                                animation.repeatCount = ValueAnimator.INFINITE
-                                animation.repeatMode = ValueAnimator.REVERSE
                                 loadingAngle = animatedValue as Float
                                 invalidate()
                             }
-                            circleAnimator.start()
                         }
                 buttonAnimator = ValueAnimator.ofInt(0, widthSize)
                         .apply {
-                            buttonAnimator.duration = 3000
+                            duration = 3000
                             repeatMode = ValueAnimator.RESTART
                             repeatCount = 1
-                            invalidate()
+                            addUpdateListener {
+                                buttonWidth = animatedValue as Int
+                                invalidate()
+                            }
                         }
+                circleAnimator.start()
                 buttonAnimator.start()
             }
 
             ButtonState.Completed -> {
                 buttonText = resources.getString(R.string.download_text)
+                buttonWidth = 0
                 circleAnimator.end()
                 buttonAnimator.end()
             }
@@ -100,9 +104,13 @@ class LoadingButton @JvmOverloads constructor(
 
     fun drawButtonAndCircle(canvas: Canvas?) {
 
+        //Draw Fixed Rectangle Button
         paintButton.color = context.getColor(R.color.colorPrimary)
-        //Draw the Rectangle
-        canvas!!.drawRect(0f, 0f, widthSize.toFloat(), heightSize.toFloat(), paintButton)
+        canvas?.drawRect(0f,0f,widthSize.toFloat(), heightSize.toFloat(),paintButton)
+
+        //Draw the Animated Rectangle
+        paintButton.color = context.getColor(R.color.colorPrimaryDark)
+        canvas!!.drawRect(0f, 0f, widthSize.toFloat() * buttonWidth / 100, heightSize.toFloat(), paintButton)
 
         //Draw Text
         paintText.textAlign = Paint.Align.CENTER

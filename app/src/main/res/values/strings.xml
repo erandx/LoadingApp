@@ -18,6 +18,7 @@
     <string name="title_activity_detail">DetailActivity</string>
     <string name="download_image">Download Image</string>
     <string name="download_text">Download</string>
+    <string name="download_completed">Download Completed</string>
     <string name="loading_text">We are Loading</string>
     
     <string name="download_channel_id" translatable="false">download_channel</string>
